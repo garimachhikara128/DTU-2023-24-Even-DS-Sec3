@@ -8,6 +8,9 @@ class Queue
     int front ;
     int rear ;
     int N ;
+    int size ;
+
+    public :
 
     Queue()
     {
@@ -16,6 +19,7 @@ class Queue
         arr = new int[default_cap] ;
         front = -1 ;
         rear = -1 ;
+        size = 0 ;
         N = default_cap ;
     }
 
@@ -24,6 +28,7 @@ class Queue
         arr = new int[cap] ;
         front = -1 ;
         rear = -1 ;
+        size = 0 ;
         N = cap ;
     }
 
@@ -44,6 +49,7 @@ class Queue
             rear = (rear +  1) % N ; 
 
         arr[rear] = item ;
+        size ++ ;
     }
 
     void dequeue()
@@ -56,6 +62,7 @@ class Queue
 
         arr[front] = 0 ;
         front = (front + 1) % N ;
+        size -- ;
     }
 
     int get()
@@ -72,19 +79,48 @@ class Queue
 
     bool empty()
     {
-        
+        return size == 0 ;
     }
 
     bool isFull()
     {
-
+        return size == N ;
     }
 
-    bool display()
+    void display()
     {
-
+        for(int i = 0 ; i < size ; i++)
+        {
+            int idx = (front + i) % N ;
+            cout << arr[idx] << " " ;
+        }
+        cout << endl ;
     }
 
+} ;
 
+int main()
+{
 
+    Queue q(5) ;
+
+    q.enqueue(10) ;
+    q.enqueue(20) ;
+    q.enqueue(30) ;
+    q.enqueue(40) ;
+    q.enqueue(50) ;
+
+    q.display() ;
+    q.dequeue() ;
+    q.dequeue() ;
+    q.dequeue() ;
+    q.dequeue() ;
+
+    q.enqueue(60) ;
+    q.enqueue(70) ;
+    q.enqueue(80) ;
+
+    q.display() ;
+
+    return 0 ;
 }
