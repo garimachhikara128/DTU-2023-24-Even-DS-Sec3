@@ -140,14 +140,106 @@ class BST
             return true ;
     }
 
+    void add(int item)
+    {
+        root = add(root, item) ;
+    }
+
+    Node *add(Node *node, int item)
+    {
+        if(node == NULL)
+        {
+            Node *nn = new Node(item) ;
+            return nn ;
+        }
+
+        if(item <= node->data)
+            node->left = add(node->left, item) ;
+        else
+            node->right = add(node->right, item) ;
+
+        return node ;
+    }
+
+    void remove(int item)
+    {
+        root = remove(root, item) ;
+    }
+
+    Node* remove(Node *node, int item)
+    {
+        if(node == NULL)
+            return node ;
+
+        if(item < node->data)
+            node->left = remove(node->left, item) ;
+        else if (item > node->data)
+            node->right = remove(node->right, item) ;
+        else 
+        {
+            // case1 
+            if(node->left == NULL && node->right == NULL)
+            {
+                delete node ;
+                return NULL ;
+            }
+            // case 2
+            else if(node->left != NULL && node->right == NULL)
+            {
+                Node *temp = node->left ;
+                delete node ;
+                return temp ;
+            }
+            // case 3
+            else if(node->left == NULL && node->right != NULL)
+            {
+                Node *temp = node->right ;
+                delete node ;
+                return temp ;
+            }
+            // case 4
+            else if(node->left != NULL && node->right != NULL)
+            {
+                int max = maximum(node->left) ;
+                remove(node->left, max) ;
+                node->data = max ;
+                return node ;
+            }
+
+        }   
+
+        return node ;
+
+    }
+
+
 } ;
 
 int main()
 {
-    int arr[] = {10,20,30,40,50,60,70} ;
+    int arr[] = {} ;
     int n = sizeof(arr) / sizeof(arr[0]) ;
 
     BST *bst = new BST(arr,n) ;
+
+    bst->display() ;
+
+    bst->add(100) ;
+    bst->add(50) ;
+    bst->add(200) ;
+    bst->add(30) ;
+    bst->add(70) ;
+    bst->add(250) ;
+    bst->add(10) ;
+    bst->add(55) ;
+    bst->add(80) ;
+    bst->add(220) ;
+    bst->add(300) ;
+    bst->add(52) ;
+    bst->add(57) ;
+    bst->add(90) ;
+    bst->add(51) ;
+    bst->add(53) ;
 
     bst->display() ;
 
@@ -155,6 +247,13 @@ int main()
     cout << bst->height() << endl ;
     cout << bst->maximum() << endl ;
     cout <<  bst->find(60) << endl ;
+
+    bst->remove(300) ;
+    bst->remove(200) ;
+    bst->remove(30) ;
+    bst->remove(70) ;
+
+    bst->display() ;
 
     return 0 ;
 }
