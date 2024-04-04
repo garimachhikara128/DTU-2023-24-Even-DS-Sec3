@@ -26,6 +26,41 @@ class MinHeap
         }
     }
 
+    int remove()
+    {
+        swap(data[0],data[data.size()-1]) ;
+        int rv = data[data.size()-1] ;
+        data.pop_back() ;
+        downheapify(0) ;
+        return rv ;
+    }
+
+    void downheapify(int pi)
+    {
+        int mini = pi ;
+
+        int lci = 2*pi+1 ;
+        int rci = 2*pi+2 ;
+
+        if(lci < data.size() && data[lci] < data[mini])
+            mini = lci ;
+
+        if(rci < data.size() && data[rci] < data[mini])
+            mini = rci ;
+
+        if(mini != pi)
+        {
+            swap(data[pi], data[mini]) ;
+            downheapify(mini) ; 
+        }
+
+    }
+
+    int get()
+    {
+        return data[0] ;
+    }
+
     void display()
     {
         for(int i = 0 ; i < data.size() ; i++)
@@ -50,6 +85,13 @@ int main()
     h.add(60) ;
     h.display() ;
     h.add(150) ;
+    h.display() ;
+
+    cout << h.remove() << endl ;
+    h.display() ;
+    cout << h.remove() << endl ;
+    h.display() ;
+    cout << h.remove() << endl ;
     h.display() ;
     
     return 0 ;
