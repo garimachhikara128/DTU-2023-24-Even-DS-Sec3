@@ -72,27 +72,53 @@ class MinHeap
 
 int main()
 {
-    MinHeap h ;
+    // MinHeap h ;
 
-    h.add(100) ;
-    h.display() ;
-    h.add(200) ;
-    h.display() ;
-    h.add(300) ;
-    h.display() ;
-    h.add(50) ;
-    h.display() ;
-    h.add(60) ;
-    h.display() ;
-    h.add(150) ;
-    h.display() ;
+    // h.add(100) ;
+    // h.display() ;
+    // h.add(200) ;
+    // h.display() ;
+    // h.add(300) ;
+    // h.display() ;
+    // h.add(50) ;
+    // h.display() ;
+    // h.add(60) ;
+    // h.display() ;
+    // h.add(150) ;
+    // h.display() ;
 
-    cout << h.remove() << endl ;
-    h.display() ;
-    cout << h.remove() << endl ;
-    h.display() ;
-    cout << h.remove() << endl ;
-    h.display() ;
+    // cout << h.remove() << endl ;
+    // h.display() ;
+    // cout << h.remove() << endl ;
+    // h.display() ;
+    // cout << h.remove() << endl ;
+    // h.display() ;
     
+    // Question : k largest
+
+    int arr[] = {100,5,15,7,40,30,80,50,35,9} ;
+    int N = sizeof(arr) / sizeof(int) ;
+    int k = 3 ;
+
+    MinHeap heap ;
+    
+    for(int i = 0 ; i < k ; i++)
+        heap.add(arr[i]) ;
+
+    for(int i = k ; i < N ; i++)
+    {
+        int curr = arr[i] ;
+        int weaker = heap.get() ;
+
+        if(curr > weaker)
+        {
+            heap.remove() ;
+            heap.add(curr) ;
+        } 
+    }
+
+    for(int i = 0 ; i < k ; i++)
+        cout << heap.remove() << endl ;
+
     return 0 ;
 }
